@@ -1,0 +1,191 @@
+@import url('reset.css'); /* pegando as configurações dos arquivos já criados */
+@import url('global.css');
+
+body {
+  background-color: var(--primary-color);
+}
+
+/* psedudo elemento, faz com que ele seja criado virtualmente através dos ::, o before adiciona antes */
+
+body::before {
+  content: ""; /* obrigatorio, para que seja exibido */
+  background-image: url('../images/spider-man-background.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%; /* largura */
+  height: 100%; /* altura */
+  position: absolute; /* ficar acima do body */
+  opacity: 0.2; /* OPACIDADE DE 20% */
+  transition: background-image 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.s-menu {
+  padding: 1rem 0; /* pagina relativa de acordo com o tamanho da fonte exemplo 1x16 */
+  width: 100%; /* Largura */
+  text-align: center;
+  position: relative; /* ele fica na frente do objeto relativo */
+}
+
+.s-menu__item {
+  display: inline-block; /* faz com que os itens fiquem lado a lado */
+  text-transform: uppercase;
+  margin: 0 1.25rem;
+}
+
+.s-menu__icon {
+  width: 2.5rem; /* Largura */
+  margin: 0 1.25rem; /* magim 0 -acima e abaixo, 1.25 laterais */
+  vertical-align: middle;
+}
+
+.s-container {
+  position: relative; /* vai permitir ser clicado */
+  display: flex; /* alinha de maneira melhor */
+  align-items: center;
+  justify-content: space-evenly; 
+  perspective: 3000px;
+}
+
+.s-card {
+  border: 0.5rem solid white; /* aquela linha em volta da imagem */
+  width: 100%; /* calc(100% /3 - 8%) */
+  height: 70vh; /* unidade de medida relativa ao viewport (area disponivel, 70% da área do navegador altura largura ) */
+  position: absolute;
+  transition: filter .5s ease-in-out;
+}
+
+.s-card:nth-child(1) {
+  transform: rotateY(0deg) translateZ(50vw);
+}
+
+
+.s-card:nth-child(2) {
+  transform: rotateY(120deg) translateZ(50vw);
+}
+
+.s-card:nth-child(3) {
+  transform: rotateY(240deg) translateZ(50vw);
+}
+
+.s-card__background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  opacity: 1;
+  transition: opacity 1s ease-in-out; /* animação para passar o mouse e acontecer algo */
+}
+
+.s-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* a imagem se apapta ao espaço disponivel, se encaixe no card */
+  position: relative;
+  transition: 1s ease-in-out;
+}
+
+.s-card__title {
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-align: center;
+  position: absolute; /* fica dentro do card e emcima do spider */
+  width: 100%;
+  bottom: 0;
+  transition: bottom 1s ease-in-out;
+}
+
+.s-controller {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  bottom: 1.5rem;
+  width: 100%;
+}
+
+.s-controller__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid white;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer; /* add a mao no mouse, como clicavel */
+  z-index: 1; /* a linha n vai cobrir o circulo */
+  transition: transform 0.3s ease-in-out; /* vai fazer com que quando o botao receber o transforme ele tenha uma transição lenta */
+}
+
+/* Ao passar o mouse ele vai aumentar o tamanho dele mesmo, 1,+ 10% dele */
+.s-controller__button:hover {
+  transform: scale(1.1);
+}
+
+/* pseseudo clase, pega o segundo elemento que tenha a mesma classe */
+.s-controller__button:nth-child(2) {
+  margin: 0 3.75rem; /* vai distanciar os crculos */
+}
+
+.s-controller__button--active {
+  background-color: white;
+  color: var(--primary-color);
+  border: 0.1875rem solid var(--primary-color);
+  outline: 0.125rem solid white;
+}
+
+.s-controller__line {
+  background-color: white;
+  width: 50%;
+  height: 2px;
+  position: absolute;
+}
+
+/* Hover Animation */
+
+.s-card--hovered .s-card__background {
+  cursor: pointer;
+  opacity: 0;
+}
+
+.s-card--hovered .s-card__image {
+  transform: scale(1.4);
+  filter: drop-shadow(30px 10px 4px rgba(0, 0, 0, .5));
+}
+
+body#spider-man-01-hovered::before {
+  background-image: url('../images/pic-sm-bg-01.jpg');
+}
+
+body#spider-man-02-hovered::before {
+  background-image: url('../images/pic-sm-bg-02.jpg');
+}
+
+body#spider-man-03-hovered::before {
+  background-image: url('../images/pic-sm-bg-03.jpg');
+}
+
+body[id^="spider-man-"]::before {
+  opacity: 1;
+}
+
+body[id^="spider-man-"] .s-card:not(.s-card--hovered) {
+  filter: grayscale(100%);
+}
+
+.s-card--hovered .s-card__title {
+  bottom: 50%;
+}
+
+.s-cards-carousel {
+  display: flex;
+  justify-content: center;
+  width: calc(100vw / 3 - 10%);
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease-in;
+}
