@@ -147,12 +147,13 @@ body::before {
 }
 
 /* Hover Animation */
-
+/* Qunaod ela estiver setada vai mudar o cursor e o backgroud vai sumir */
 .s-card--hovered .s-card__background {
   cursor: pointer;
   opacity: 0;
 }
 
+/* Pega a imagem q8ue vai sofrer a alteração e vai mudar a escala para dar o efeito de ir para frente */
 .s-card--hovered .s-card__image {
   transform: scale(1.4);
   filter: drop-shadow(30px 10px 4px rgba(0, 0, 0, .5));
